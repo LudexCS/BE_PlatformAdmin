@@ -4,8 +4,10 @@ import {TagDto, toTagDto} from "../dto/tag.dto";
 
 export const registerTag = async (tagName: string)=> {
     try {
+        console.log("before: " + tagName);
         const tag = new Tag();
         tag.setName(tagName);
+        console.log("after: " + tag.name);
         return await saveTag(tag);
     } catch (error) {
         throw error;
