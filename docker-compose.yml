@@ -1,0 +1,6 @@
+services:
+  platformadmin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gomdadi/platformadmin:latest
