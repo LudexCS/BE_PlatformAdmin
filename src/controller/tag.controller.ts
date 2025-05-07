@@ -4,8 +4,10 @@ import {TagDto} from "../dto/tag.dto";
 
 export const createTagControl = async (req: Request) => {
     try {
-        const tagName = req.body;
-        if (tagName === undefined) throw new Error("Name field is required");
+        const tagName = req.body.name;
+        if (typeof tagName !== 'string' || tagName.trim() === '') {
+            throw new Error("Name field is required");
+        }
         return await registerTag(tagName);
     } catch (error) {
         throw error;
@@ -15,6 +17,9 @@ export const createTagControl = async (req: Request) => {
 export const updateTagControl = async (req: Request) => {
     try {
         const tagDto: TagDto = req.body;
+        if (typeof tagDto !== 'object' || tagDto === null) {
+            throw new Error("Invalid request body.");
+        }
         if (tagDto.id === undefined) throw new Error("ID field is required.");
         if (tagDto.name === undefined) throw new Error("Name field is required.");
         await editTag(tagDto);
@@ -25,10 +30,15 @@ export const updateTagControl = async (req: Request) => {
 
 export const deleteTagControl = async (req: Request) => {
     try {
-        const id = req.body;
-        if (id === undefined) throw new Error("ID field is required.");
+        const id = typeof req.body === 'object' && req.body !== null ? req.body.id : undefined;
+
+        if (typeof id !== 'number' || !Number.isInteger(id) || id <= 0) {
+            throw new Error("Invalid input: 'id' field is required and must be a positive integer.");
+        }
+
         await removeTag(id);
     } catch (error) {
+        console.error("Failed to remove tag:", error);
         throw error;
     }
 }
