@@ -17,8 +17,6 @@ import {GetBannerDto} from "../dto/banner.dto";
  *         name:
  *           type: string
  *           example: "Action"
- * components:
- *   schemas:
  *     GetBannerDto:
  *       type: object
  *       properties:
