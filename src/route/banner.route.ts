@@ -68,11 +68,12 @@ router.post('/create', upload.fields([
     try {
         const createBannerDto: CreateBannerDto = JSON.parse(req.body.json) as CreateBannerDto;
 
-        const imageFiles = (req.files as any)?.['imageUrl'] || [0];
+        const imageFile = (req.files as any)?.['imageUrl']?.[0];
+        if (!imageFile) throw new Error("No banner image file uploaded");
 
         createBannerDto.imageUrl = {
-            path: imageFiles.path,
-            mimetype: imageFiles.mimetype
+            path: imageFile.path,
+            mimetype: imageFile.mimetype
         };
 
         createBannerDto.adminId = req.userId as number;
