@@ -16,14 +16,9 @@ export interface CreateBannerDto {
 
 export interface GetBannerDto {
   id: number;
-  adminId: number;
   title: string;
   imageUrl: string;
   linkUrl: string;
-  visible: boolean;
-  priority: number;
-  startsAt: Date;
-  endsAt: Date;
 }
 
 export function toBannerEntity(dto: CreateBannerDto): Banner {
@@ -43,13 +38,8 @@ export function toBannerEntity(dto: CreateBannerDto): Banner {
 export function toBannerDto(banner: Banner, imageUrl: string): GetBannerDto {
   return {
     id: banner.id,
-    adminId: banner.adminId,
     title: banner.title,
     imageUrl: imageUrl,
     linkUrl: banner.linkUrl,
-    visible: banner.visible,
-    priority: banner.priority,
-    startsAt: banner.startsAt,
-    endsAt: banner.endsAt,
   }
 }

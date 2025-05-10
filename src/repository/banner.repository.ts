@@ -25,13 +25,18 @@ export const updateBannerFields = async (
     }
 };
 
-export const getActiveBanners = async (): Promise<Banner[]> => {
+export const getActiveBanners = async () => {
     try {
         const now = new Date();
         return await bannerRepo.find({
+            select: ["id", "title", "imageUrl", "linkUrl"],
             where: {
+                visible: true,
                 startsAt: LessThanOrEqual(now),
                 endsAt: MoreThanOrEqual(now)
+            },
+            order: {
+                priority: "ASC"
             }
         });
     } catch (error) {
