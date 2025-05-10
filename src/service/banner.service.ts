@@ -14,6 +14,7 @@ export async function registerBanner(createBannerDto: CreateBannerDto) {
 
 export async function findBanner() {
     const entity = await getActiveBanners();
+    if (entity.length === 0) return [];
     return await Promise.all(entity.map(async banner => {
         const key = banner.imageUrl;
         const url = await getBannerPresignedUrl(key);

@@ -24,24 +24,12 @@ import {GetBannerDto} from "../dto/banner.dto";
  *       properties:
  *         id:
  *           type: number
- *         adminId:
- *           type: number
  *         title:
  *           type: string
  *         imageUrl:
  *           type: string
  *         linkUrl:
  *           type: string
- *         visible:
- *           type: boolean
- *         priority:
- *           type: number
- *         startsAt:
- *           type: string
- *           format: date-time
- *         endsAt:
- *           type: string
- *           format: date-time
  */
 const router: Router = Router();
 
