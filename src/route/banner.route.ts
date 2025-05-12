@@ -1,3 +1,5 @@
+import sharp from "sharp";
+import fs from "fs/promises";
 import {CreateBannerDto} from "../dto/banner.dto";
 import {Request, Response, Router} from "express";
 import multer from "multer";
@@ -71,9 +73,16 @@ router.post('/create', upload.fields([
         const imageFile = (req.files as any)?.['imageUrl']?.[0];
         if (!imageFile) throw new Error("No banner image file uploaded");
 
+        const webpPath = imageFile.path + ".webp";
+        await sharp(imageFile.path)
+          .resize(1440, 400, { fit: "cover" })
+          .webp({ quality: 80 })
+          .toFile(webpPath);
+        await fs.unlink(imageFile.path);
+
         createBannerDto.imageUrl = {
-            path: imageFile.path,
-            mimetype: imageFile.mimetype
+          path: webpPath,
+          mimetype: "image/webp"
         };
 
         createBannerDto.adminId = req.userId as number;
