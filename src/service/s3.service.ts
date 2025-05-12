@@ -16,7 +16,9 @@ export const uploadBannerImageToS3 = async (
             Bucket: process.env.AWS_S3_BUCKET,
             Key: key,
             Body: buffer,
-            ContentType: image.mimetype
+            ContentType: image.mimetype,
+            CacheControl: "public, max-age=604800",
+            ACL: "public-read"
         }));
     } catch (error) {
         console.error("S3 upload error:", error);
