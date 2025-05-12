@@ -7,7 +7,7 @@ import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
 export const uploadBannerImageToS3 = async (
     image: { path: string; mimetype: string },
     bannerId: number
-): Promise<string> => {
+): Promise<{ url:string, key:string }> => {
     const buffer = await readFile(image.path);
     const key = `banners/${bannerId}/${uuidv4()}${image.path.substring(image.path.lastIndexOf('.'))}`;
 
@@ -23,9 +23,11 @@ export const uploadBannerImageToS3 = async (
         throw new Error("Failed to upload banner image to S3");
     }
 
-    return key;
-};
+    const url = `https://${process.env.AWS_S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
 
+    return { url, key };
+};
+/*
 export async function getBannerPresignedUrl(key: string): Promise<string> {
     const expiresInSec = 60;
 
@@ -41,3 +43,4 @@ export async function getBannerPresignedUrl(key: string): Promise<string> {
         throw new Error("Failed to generate presigned banner URL");
     }
 }
+*/

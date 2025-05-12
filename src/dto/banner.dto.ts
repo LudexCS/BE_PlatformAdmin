@@ -35,11 +35,11 @@ export function toBannerEntity(dto: CreateBannerDto): Banner {
   return banner;
 }
 
-export function toBannerDto(banner: Banner, imageUrl: string): GetBannerDto {
+export function toBannerDto(banner: Banner): GetBannerDto {
   return {
     id: banner.id,
     title: banner.title,
-    imageUrl: imageUrl,
+    imageUrl: banner.imageUrl,
     linkUrl: banner.linkUrl,
   }
 }
