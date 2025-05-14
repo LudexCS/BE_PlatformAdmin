@@ -75,7 +75,7 @@ router.post('/create', upload.fields([
 
         const webpPath = imageFile.path + ".webp";
         await sharp(imageFile.path)
-          .resize(1440, 400, { fit: "cover" })
+          .resize(1440, 400, { fit: "inside" })
           .webp({ quality: 80 })
           .toFile(webpPath);
         await fs.unlink(imageFile.path);
