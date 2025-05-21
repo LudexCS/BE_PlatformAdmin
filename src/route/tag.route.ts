@@ -21,6 +21,9 @@ import { createTagControl, deleteTagControl, updateTagControl } from "../control
  *         name:
  *           type: string
  *           example: "Action"
+ *         nameKo:
+ *           type: string
+ *           example: "액션"
  *     UpdateTagDto:
  *       type: object
  *       properties:
@@ -30,6 +33,9 @@ import { createTagControl, deleteTagControl, updateTagControl } from "../control
  *         name:
  *           type: string
  *           example: "Adventure"
+ *         nameKo:
+ *           type: string
+ *           example: "액션"
  *     DeleteTagDto:
  *       type: object
  *       properties:
