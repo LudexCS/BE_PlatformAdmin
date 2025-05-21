@@ -4,6 +4,7 @@ export interface TagDto {
     id?: number;
     name: string;
     nameKo?: string;
+    nameChoseong?: string;
 }
 
 export function toTagDto(tag: Tag): TagDto {
