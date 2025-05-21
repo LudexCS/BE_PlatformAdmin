@@ -16,7 +16,7 @@ export const saveTag = async (tag: Tag) => {
 
 export const updateTag = async (tag: TagDto) => {
     try {
-        return await tagRepo.update({ id: tag.id }, { name: tag.name });
+        return await tagRepo.update({ id: tag.id }, { name: tag.name, nameKo: tag.nameKo });
     } catch (error) {
         console.error('Failed to update tag:', error);
         throw new Error('Failed to update tag in database');
