@@ -1,12 +1,11 @@
 import { Router, Request, Response } from "express";
+import {getReportControl} from "../controller/report.controller";
 
-const router = Router();
+const router: Router = Router();
 
 router.get("/reports", async (req: Request, res: Response) => {
-    const handled = req.body.handled as boolean;
-    const page = parseInt(req.body.page as string) || 1;
     try {
-        const reportList = await getReportControl(hnadled, page);
+        const reportList = await getReportControl(req, res);
         res.status(200).json(reportList);
     } catch {
         res.status(500).json({ error: "Failed to load reports." });

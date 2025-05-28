@@ -8,6 +8,7 @@ import adminGuard from "./middleware/admin.guard";
 import bannerRoute from "./route/banner.route";
 import termRoute from "./route/term.route";
 import getRoute from './route/get.route';
+import reportRoute from './route/report.route';
 
 const app : Express = express();
 app.use(express.json());
@@ -26,5 +27,6 @@ app.use('/api/admin/tag', tagRoute);
 app.use('/api/admin/term', termRoute);
 app.use('/api/admin/banner', bannerRoute);
 app.use('/api/get', getRoute);
+app.use('/api/admin/report', reportRoute)
 
 export default app;
