@@ -30,13 +30,13 @@ import {
  *       properties:
  *         adminEmail:
  *           type: string
- *           example: "admin@example.com"
+ *           example: "admin@admin.com"
  *         gameTitle:
  *           type: string
  *           example: "Offensive Game"
  *         userEmail:
  *           type: string
- *           example: "user@example.com"
+ *           example: "user@user.com"
  *         sanctionDetail:
  *           type: string
  *           example: "불쾌한 콘텐츠 포함"
@@ -53,7 +53,7 @@ import {
  *       properties:
  *         email:
  *           type: string
- *           example: "baduser@example.com"
+ *           example: "user@user.com"
  *
  *     SanctionedGameResponse:
  *       type: object
@@ -77,7 +77,7 @@ import {
  *           example: "badUser123"
  *         email:
  *           type: string
- *           example: "baduser@example.com"
+ *           example: "user@user.com"
  *         sanctionDetail:
  *           type: string
  *           example: "욕설 및 도배"
@@ -111,7 +111,7 @@ const router: Router = Router();
  *             properties:
  *               adminEmail:
  *                 type: string
- *                 example: "admin@example.com"
+ *                 example: "admin@admin.com"
  *               gameTitle:
  *                 type: string
  *                 example: "Offensive Game"
@@ -159,10 +159,10 @@ router.post("/game", async (req: Request, res: Response) => {
  *             properties:
  *               adminEmail:
  *                 type: string
- *                 example: "admin@example.com"
+ *                 example: "admin@admin.com"
  *               userEmail:
  *                 type: string
- *                 example: "user@example.com"
+ *                 example: "user@user.com"
  *               sanctionDetail:
  *                 type: string
  *                 example: "욕설 및 도배"
@@ -244,7 +244,7 @@ router.post("/free/game", async (req: Request, res: Response) => {
  *             properties:
  *               email:
  *                 type: string
- *                 example: "user@example.com"
+ *                 example: "user@user.com"
  *     responses:
  *       200:
  *         description: 유저 제재 해제 성공
