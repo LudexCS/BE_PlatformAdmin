@@ -3,13 +3,13 @@ import {Request, Response} from "express";
 import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 import {findIdByEmail} from "../repository/account.repository";
 
-export const getReportControl = async(req: Request,) => {
+export const getReportControl = async(req: Request,res: Response) => {
     const handled = req.body.handled as boolean;
     const page = parseInt(req.body.page as string) || 1;
     return getReports(handled, page);
 }
 
-export const createReportControl = async (req: Request) => {
+export const createReportControl = async (req: Request, res: Response) => {
         const userEmail = req.user as string;
         const userId = await findIdByEmail(userEmail);
         const dto = req.body as ReportCreateRequestDto;
