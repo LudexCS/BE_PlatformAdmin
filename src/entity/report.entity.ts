@@ -12,7 +12,7 @@ export class Report {
     reportedGameId: number;
 
     @Column({ name: "reports_details", type: "varchar", length: 255, nullable: true })
-    reportsDetails: string;
+    reportsDetails: string | null;
 
     @CreateDateColumn({ name: "reported_at", type: "timestamp" })
     reportedAt: Date;
