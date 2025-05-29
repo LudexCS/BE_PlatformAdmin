@@ -11,3 +11,10 @@ export const findIdByEmail = async (email: string) => {
     }
     return account.id;
 };
+
+export const findAccountByEmail = async (email: string): Promise<Account | null> => {
+    return await accountRepo
+        .createQueryBuilder("account")
+        .where("account.email = :email", { email })
+        .getOne();
+};
