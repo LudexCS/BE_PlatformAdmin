@@ -14,6 +14,7 @@ export const registerSanctionGame = async (
     sanctionDetail: string
 ) => {
     const admin = await findAccountByEmail(adminEmail);
+    if (!admin) throw new Error("Admin not found");
     const game = await findGameByTitle(gameTitle);
     if (!game) throw new Error("Game not found");
 
@@ -26,6 +27,7 @@ export const registerSanctionUser = async (
     sanctionDetail: string
 ) => {
     const admin = await findAccountByEmail(adminEmail);
+    if (!admin) throw new Error("Admin not found");
     const user = await findAccountByEmail(userEmail);
     if (!user) throw new Error("User not found");
 
