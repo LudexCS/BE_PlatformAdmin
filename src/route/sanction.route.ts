@@ -89,6 +89,41 @@ import {
 
 const router: Router = Router();
 
+
+/**
+ * @swagger
+ * /api/admin/sanction/game:
+ *   post:
+ *     summary: 게임 제재 등록
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - adminEmail
+ *               - gameTitle
+ *               - sanctionDetail
+ *             properties:
+ *               adminEmail:
+ *                 type: string
+ *                 example: "admin@example.com"
+ *               gameTitle:
+ *                 type: string
+ *                 example: "Offensive Game"
+ *               sanctionDetail:
+ *                 type: string
+ *                 example: "불쾌한 콘텐츠 포함"
+ *     responses:
+ *       201:
+ *         description: 게임 제재 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/game", async (req: Request, res: Response) => {
     try {
         await sanctionGameControl(req, res);
@@ -102,6 +137,41 @@ router.post("/game", async (req: Request, res: Response) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /api/admin/sanction/user:
+ *   post:
+ *     summary: 유저 제재 등록
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - adminEmail
+ *               - userEmail
+ *               - sanctionDetail
+ *             properties:
+ *               adminEmail:
+ *                 type: string
+ *                 example: "admin@example.com"
+ *               userEmail:
+ *                 type: string
+ *                 example: "user@example.com"
+ *               sanctionDetail:
+ *                 type: string
+ *                 example: "욕설 및 도배"
+ *     responses:
+ *       201:
+ *         description: 유저 제재 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/user", async (req: Request, res: Response) => {
     try {
         await sanctionUserControl(req, res);
@@ -115,6 +185,33 @@ router.post("/user", async (req: Request, res: Response) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /api/admin/sanction/free/game:
+ *   post:
+ *     summary: 게임 제재 해제
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - gameTitle
+ *             properties:
+ *               gameTitle:
+ *                 type: string
+ *                 example: "Offensive Game"
+ *     responses:
+ *       200:
+ *         description: 게임 제재 해제 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/free/game", async (req: Request, res: Response) => {
     try {
         await freeSanctionGameControl(req, res);
@@ -128,6 +225,32 @@ router.post("/free/game", async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/admin/sanction/free/user:
+ *   post:
+ *     summary: 유저 제재 해제
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: "user@example.com"
+ *     responses:
+ *       200:
+ *         description: 유저 제재 해제 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/free/user", async (req: Request, res: Response) => {
     try {
         await freeSanctionUserControl(req, res);
@@ -141,6 +264,44 @@ router.post("/free/user", async (req: Request, res: Response) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /api/admin/sanction/gameList:
+ *   get:
+ *     summary: 제재된 게임 목록 조회
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         required: false
+ *         description: 페이지 번호
+ *     responses:
+ *       200:
+ *         description: 제재된 게임 목록 반환
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   gameTitle:
+ *                     type: string
+ *                     example: "Offensive Game"
+ *                   sanctionDetail:
+ *                     type: string
+ *                     example: "폭력성 포함"
+ *                   startedAt:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-05-28T10:30:00Z"
+ */
 router.get("/gameList", async (req: Request, res: Response) => {
     try {
         const result = await getSanctionedGamesControl(req, res);
