@@ -1,4 +1,4 @@
 export interface ReportCreateRequestDto {
     reportedGameId: number;
-    reportsDetails?: string;
+    reportsDetails: string | null;
 }

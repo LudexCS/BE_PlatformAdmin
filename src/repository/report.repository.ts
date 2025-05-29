@@ -1,7 +1,7 @@
 import AppDataSource from "../config/mysql.config";
+import { ReportEntity } from "../entity/report.entity";
 
-
-const reportRepo = AppDataSource.getRepository(Report);
+const reportRepo = AppDataSource.getRepository(ReportEntity);
 
 export const findReports = async (handled: boolean, offset: number, limit: number) => {
     return await reportRepo
@@ -13,6 +13,6 @@ export const findReports = async (handled: boolean, offset: number, limit: numbe
         .getMany();
 };
 
-export const saveReport = async (report: Report): Promise<Report> => {
+export const saveReport = async (report: ReportEntity): Promise<ReportEntity> => {
     return await reportRepo.save(report);
 };
