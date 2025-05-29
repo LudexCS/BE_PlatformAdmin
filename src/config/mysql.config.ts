@@ -4,6 +4,7 @@ import {Tag} from "../entity/tag.entity";
 import {Term} from "../entity/term.entity";
 import {TermVersion} from "../entity/termVersion.entity";
 import {Banner} from "../entity/banner.entity";
+import {Account} from "../entity/account.entity";
 import {ReportEntity} from "../entity/report.entity";
 import {SanctionGame, SanctionUser} from "../entity/sanction.entity";
 
