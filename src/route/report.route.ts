@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import {getReportControl} from "../controller/report.controller";
+import {getReportControl, handleReportControl} from "../controller/report.controller";
 
 
 /**
@@ -83,6 +83,49 @@ router.get("/getList", async (req: Request, res: Response) => {
         res.status(200).json(reportList);
     } catch {
         res.status(500).json({error: "Failed to load reports."});
+    }
+});
+
+/**
+ * @swagger
+ * /api/admin/report/handleReport:
+ *   post:
+ *     summary: 신고 처리 완료
+ *     description: 특정 reportId의 신고를 처리 상태로 변경합니다.
+ *     tags:
+ *       - Report
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reportId:
+ *                 type: integer
+ *                 example: 3
+ *     responses:
+ *       200:
+ *         description: 신고가 처리됨
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Report marked as handled."
+ *       400:
+ *         description: 잘못된 요청 (이미 처리되었거나 존재하지 않는 ID)
+ */
+router.post("/handleReport", async (req: Request, res: Response) => {
+    try {
+        const result = await handleReportControl(req, res);
+        res.status(200).json({ message: result });
+    } catch (error) {
+        res.status(400).json({ error: (error as Error).message });
     }
 });
 

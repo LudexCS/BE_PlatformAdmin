@@ -1,4 +1,4 @@
-import {getReports, createReport} from "../service/report.service";
+import {getReports, createReport, handleReportService} from "../service/report.service";
 import {Request, Response} from "express";
 import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 import {findIdByEmail} from "../repository/account.repository";
@@ -14,4 +14,15 @@ export const createReportControl = async (req: Request, res: Response) => {
         const userId = await findIdByEmail(userEmail);
         const dto = req.body as ReportCreateRequestDto;
         return await createReport(dto, userId);
+};
+
+export const handleReportControl = async (req: Request, res: Response) => {
+    const reportId = req.body.reportId;
+    const adminEmail = req.user as string;
+
+    if (!reportId || !adminEmail) {
+        throw new Error("Missing reportId or admin identity.");
+    }
+
+    return await handleReportService(reportId, adminEmail);
 };
