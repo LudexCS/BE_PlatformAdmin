@@ -43,7 +43,7 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /getList:
+ * /api/admin/report/getList:
  *   get:
  *     summary: 신고 목록 조회
  *     description: 처리 여부와 페이지 번호를 기준으로 신고 목록을 조회합니다.
