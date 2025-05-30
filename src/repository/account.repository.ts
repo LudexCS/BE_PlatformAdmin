@@ -18,3 +18,4 @@ export const findAccountByEmail = async (email: string): Promise<Account | null>
         .where("account.email = :email", { email })
         .getOne();
 };
+

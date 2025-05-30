@@ -16,3 +16,18 @@ export const findReports = async (handled: boolean, offset: number, limit: numbe
 export const saveReport = async (report: ReportEntity): Promise<ReportEntity> => {
     return await reportRepo.save(report);
 };
+
+export const updateReportAsHandled = async (reportId: number, adminId: number) => {
+    await reportRepo.update(
+        { id: reportId },
+        {
+            isHandled: true,
+            handledAt: new Date(),
+            handledAdminId: adminId,
+        }
+    );
+};
+
+export const findReportById = async (reportId: number) => {
+    return await reportRepo.findOneBy({ id: reportId });
+};
