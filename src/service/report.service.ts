@@ -21,18 +21,13 @@ export const createReport = async (
     return await saveReport(report);
 };
 
-export const handleReportService = async (reportId: number, adminEmail: string): Promise<string> => {
+export const handleReportService = async (reportId: number, adminId: number): Promise<string> => {
     const report = await findReportById(reportId);
     if (!report) {
         throw new Error("Report not found.");
     }
     if (report.isHandled) {
         throw new Error("Report has already been handled.");
-    }
-
-    const adminId = await findIdByEmail(adminEmail);
-    if (!adminId) {
-        throw new Error("Admin account not found.");
     }
 
     await updateReportAsHandled(reportId, adminId);

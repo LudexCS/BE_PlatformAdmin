@@ -18,11 +18,11 @@ export const createReportControl = async (req: Request, res: Response) => {
 
 export const handleReportControl = async (req: Request, res: Response) => {
     const reportId = req.body.reportId;
-    const adminEmail = req.user as string;
+    const adminId = req.userId as number;
 
-    if (!reportId || !adminEmail) {
+    if (!reportId || !adminId) {
         throw new Error("Missing reportId or admin identity.");
     }
 
-    return await handleReportService(reportId, adminEmail);
+    return await handleReportService(reportId, adminId);
 };
