@@ -43,12 +43,26 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/admin/report/getList:
+ * /getList:
  *   get:
  *     summary: 신고 목록 조회
- *     description: 유저가 신고한 게임에 대한 전체 신고 목록을 조회합니다. (관리자 전용)
+ *     description: 처리 여부와 페이지 번호를 기준으로 신고 목록을 조회합니다.
  *     tags:
- *       - Report (관리자)
+ *       - Report
+ *     parameters:
+ *       - in: query
+ *         name: handled
+ *         required: true
+ *         schema:
+ *           type: boolean
+ *         description: true면 처리된 신고만, false면 미처리 신고만 조회
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: 페이지 번호 (기본값 1)
  *     responses:
  *       200:
  *         description: 신고 목록 조회 성공
@@ -57,9 +71,9 @@ const router: Router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/ReportDto'
+ *                 $ref: '#/components/schemas/Report'
  *       500:
- *         description: 서버 오류로 신고 목록을 불러오지 못함
+ *         description: 서버 오류로 인해 신고 목록을 불러오지 못함
  */
 router.get("/getList", async (req: Request, res: Response) => {
     try {
