@@ -47,8 +47,7 @@ const router: Router = Router();
  *   get:
  *     summary: 신고 목록 조회
  *     description: 처리 여부와 페이지 번호를 기준으로 신고 목록을 조회합니다.
- *     tags:
- *       - Report (관리자)
+ *     tags: [Report (관리자)]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -92,8 +91,7 @@ router.get("/getList", async (req: Request, res: Response) => {
  *   post:
  *     summary: 신고 처리
  *     description: 특정 reportId의 신고를 처리 상태로 변경합니다.
- *     tags:
- *       - Report (관리자)
+ *     tags: [Report (관리자)]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
