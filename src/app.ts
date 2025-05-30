@@ -31,6 +31,6 @@ app.use('/api/admin/banner', bannerRoute);
 app.use('/api/get', getRoute);
 app.use('/api/admin/report', reportRoute)
 app.use('/api/admin/sanction', sanctionRoute);
-app.use('/api/protected/admin/report', postReportRoute);
+app.use('/api/protected/report', postReportRoute);
 
 export default app;
