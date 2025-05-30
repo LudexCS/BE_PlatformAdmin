@@ -24,31 +24,37 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/protected/report/post:
- *   post:
- *     summary: 게임 신고 등록
- *     description: 유저가 특정 게임을 신고합니다. JWT 인증이 필요합니다.
+ * /getList:
+ *   get:
+ *     summary: 신고 목록 조회
+ *     description: 처리 여부와 페이지 번호를 기준으로 신고 목록을 조회합니다.
  *     tags:
- *       - Report (유저)
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CreateReportDto'
+ *       - Report
+ *     parameters:
+ *       - in: query
+ *         name: handled
+ *         required: true
+ *         schema:
+ *           type: boolean
+ *         description: true면 처리된 신고만, false면 미처리 신고만 조회
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: 페이지 번호 (기본값 1)
  *     responses:
  *       200:
- *         description: 신고가 성공적으로 등록됨
+ *         description: 신고 목록 조회 성공
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Report successfully.
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Report'
  *       500:
- *         description: 서버 오류로 신고 실패
+ *         description: 서버 오류로 인해 신고 목록을 불러오지 못함
  */
 router.post("/post", async (req: Request, res: Response) => {
     try {

@@ -4,8 +4,8 @@ import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 import {findIdByEmail} from "../repository/account.repository";
 
 export const getReportControl = async(req: Request,res: Response) => {
-    const handled = req.body.handled as boolean;
-    const page = parseInt(req.body.page as string) || 1;
+    const handled = req.query.handled === "true";
+    const page = parseInt(req.query.page as string) || 1;
     return getReports(handled, page);
 }
 
