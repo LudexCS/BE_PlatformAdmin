@@ -49,6 +49,8 @@ const router: Router = Router();
  *     description: 처리 여부와 페이지 번호를 기준으로 신고 목록을 조회합니다.
  *     tags:
  *       - Report
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: handled
