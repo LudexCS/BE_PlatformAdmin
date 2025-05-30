@@ -11,7 +11,6 @@ import getRoute from './route/get.route';
 import reportRoute from './route/report.route';
 import sanctionRoute from './route/sanction.route';
 import postReportRoute from './route/postReport.route';
-import gameDataRoute from './route/gameData.route';
 
 const app : Express = express();
 app.use(express.json());
@@ -33,6 +32,5 @@ app.use('/api/get', getRoute);
 app.use('/api/admin/report', reportRoute)
 app.use('/api/admin/sanction', sanctionRoute);
 app.use('/api/protected/report', postReportRoute);
-app.use('/api/admin/get', gameDataRoute)
 
 export default app;
