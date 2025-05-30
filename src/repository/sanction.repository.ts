@@ -2,6 +2,8 @@ import AppDataSource from "../config/mysql.config";
 import { SanctionGame, SanctionUser } from "../entity/sanction.entity";
 import {Account} from "../entity/account.entity";
 import {Game} from "../entity/game.entity";
+import { gameRepo } from "./game.repository";
+import { accountRepo } from "./account.repository";
 
 export const saveSanctionGame = async (adminId: number, gameId: number, detail: string) => {
     const repo = AppDataSource.getRepository(SanctionGame);
@@ -11,6 +13,8 @@ export const saveSanctionGame = async (adminId: number, gameId: number, detail: 
         sanctionDetail: detail,
         startedAt: new Date(),
     });
+
+    await gameRepo.update({ id: gameId }, { isBlocked: true });
     await repo.save(entry);
 };
 
@@ -22,6 +26,8 @@ export const saveSanctionUser = async (adminId: number, userId: number, detail: 
         sanctionDetail: detail,
         startedAt: new Date(),
     });
+
+    await accountRepo.update({ id: userId }, { isBlocked: true });
     await repo.save(entry);
 };
 
