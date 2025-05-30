@@ -5,8 +5,8 @@ import {
     deleteSanctionUserByUserId, findSanctionedGamesWithTitle, findSanctionedUsersWithInfo,
 } from "../repository/sanction.repository";
 
-import {findGameByTitle} from "../repository/game.repository";
-import {findAccountByEmail} from "../repository/account.repository";
+import {findGameByTitle, gameRepo} from "../repository/game.repository";
+import {accountRepo, findAccountByEmail} from "../repository/account.repository";
 
 export const registerSanctionGame = async (
     adminEmail: string,
@@ -39,12 +39,14 @@ export const unsanctionGameByTitle = async (title: string) => {
     if (!game) throw new Error("Game not found");
 
     await deleteSanctionGameByGameId(game.id);
+    await gameRepo.update({ id: game.id }, { isBlocked: true });
 };
 
 export const unsanctionUserByEmail = async (email: string) => {
     const user = await findAccountByEmail(email);
     if (!user) throw new Error("User not found");
 
+    await accountRepo.update({ id: user.id }, { isBlocked: true });
     await deleteSanctionUserByUserId(user.id);
 };
 
