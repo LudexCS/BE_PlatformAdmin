@@ -28,7 +28,10 @@ const router: Router = Router();
  *   post:
  *     summary: 게임 신고 등록
  *     description: 유저가 특정 게임을 신고합니다. JWT 인증이 필요합니다.
+ *     tags:
  *       - Report (유저)
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -46,6 +49,8 @@ const router: Router = Router();
  *                 message:
  *                   type: string
  *                   example: Report successfully.
+ *       401:
+ *         description: 인증 실패
  *       500:
  *         description: 서버 오류로 신고 실패
  */
