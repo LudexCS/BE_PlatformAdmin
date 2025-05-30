@@ -73,7 +73,7 @@ const router: Router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Report'
+ *                 $ref: '#/components/schemas/ReportDto'
  *       500:
  *         description: 서버 오류로 인해 신고 목록을 불러오지 못함
  */
