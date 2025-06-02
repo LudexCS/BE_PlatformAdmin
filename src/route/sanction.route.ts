@@ -31,9 +31,9 @@ import {
  *         adminEmail:
  *           type: string
  *           example: "admin@admin.com"
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: integer
+ *           example: 90
  *         userEmail:
  *           type: string
  *           example: "user@user.com"
@@ -44,9 +44,9 @@ import {
  *     SanctionFreeGameRequest:
  *       type: object
  *       properties:
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: Integer
+ *           example: 90
  *
  *     SanctionFreeUserRequest:
  *       type: object
@@ -58,9 +58,9 @@ import {
  *     SanctionedGameResponse:
  *       type: object
  *       properties:
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: Integer
+ *           example: 90
  *         sanctionDetail:
  *           type: string
  *           example: "폭력성 이슈"
@@ -106,15 +106,15 @@ const router: Router = Router();
  *             type: object
  *             required:
  *               - adminEmail
- *               - gameTitle
+ *               - gameId
  *               - sanctionDetail
  *             properties:
  *               adminEmail:
  *                 type: string
  *                 example: "admin@admin.com"
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
  *               sanctionDetail:
  *                 type: string
  *                 example: "불쾌한 콘텐츠 포함"
@@ -137,6 +137,19 @@ router.post("/game", async (req: Request, res: Response) => {
     }
 });
 
+
+router.post("/resource", async (req: Request, res: Response) => {
+    try{
+        await sanctionResourceControl(req, res);
+        res.status(201).json({message: "Game Sanction with Resource"});
+    } catch(err){
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
+    }
+})
 
 /**
  * @swagger
@@ -201,11 +214,11 @@ router.post("/user", async (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             required:
- *               - gameTitle
+ *               - gameId
  *             properties:
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
  *     responses:
  *       200:
  *         description: 게임 제재 해제 성공
@@ -294,6 +307,9 @@ router.post("/free/user", async (req: Request, res: Response) => {
  *                   gameTitle:
  *                     type: string
  *                     example: "Offensive Game"
+ *                   gameId:
+ *                     type: integer
+ *                     example: 90
  *                   sanctionDetail:
  *                     type: string
  *                     example: "폭력성 포함"

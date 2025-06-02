@@ -5,21 +5,35 @@ import {
     deleteSanctionUserByUserId, findSanctionedGamesWithTitle, findSanctionedUsersWithInfo,
 } from "../repository/sanction.repository";
 
-import {findGameByTitle, gameRepo} from "../repository/game.repository";
+import {findGameById, findGameByTitle, gameRepo} from "../repository/game.repository";
 import {accountRepo, findAccountByEmail} from "../repository/account.repository";
 
 export const registerSanctionGame = async (
     adminEmail: string,
-    gameTitle: string,
+    gameId: number,
     sanctionDetail: string
 ) => {
     const admin = await findAccountByEmail(adminEmail);
     if (!admin) throw new Error("Admin not found");
-    const game = await findGameByTitle(gameTitle);
+    const game = await findGameById(gameId);
     if (!game) throw new Error("Game not found");
 
     await saveSanctionGame(admin.id, game.id, sanctionDetail);
 };
+
+export const registerSanctionGameWithResource = async(
+    adminEmail: string,
+    gameId: number,
+    sanctionDetail: string
+)=> {
+    const admin = await findAccountByEmail(adminEmail);
+    if (!admin) throw new Error("Admin not found");
+    const game = await findGameById(gameId);
+    if (!game) throw new Error("Game not found");
+    while(true){
+
+    }
+}
 
 export const registerSanctionUser = async (
     adminEmail: string,
@@ -34,8 +48,8 @@ export const registerSanctionUser = async (
     await saveSanctionUser(admin.id, user.id, sanctionDetail);
 };
 
-export const unsanctionGameByTitle = async (title: string) => {
-    const game = await findGameByTitle(title);
+export const unsanctionGameByTitle = async (gameId: number) => {
+    const game = await findGameById(gameId);
     if (!game) throw new Error("Game not found");
 
     await deleteSanctionGameByGameId(game.id);

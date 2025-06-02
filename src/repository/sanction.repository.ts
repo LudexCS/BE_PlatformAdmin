@@ -37,6 +37,7 @@ export const findSanctionedGamesWithTitle = async (offset: number, limit: number
         .leftJoin("game", "game", "game.id = sanction.game_id")
         .select([
             "game.title AS gameTitle",
+            "game.id AS gameId",
             "sanction.sanction_detail AS sanctionDetail",
             "sanction.started_at AS startedAt",
         ])
