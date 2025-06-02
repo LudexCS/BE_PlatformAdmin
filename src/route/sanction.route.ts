@@ -6,6 +6,7 @@ import {
     freeSanctionUserControl,
     getSanctionedGamesControl,
     getSanctionedUsersControl,
+    sanctionResourceControl,
 } from "../controller/sanction.controller";
 
 /**
@@ -237,6 +238,19 @@ router.post("/free/game", async (req: Request, res: Response) => {
         }
     }
 });
+
+router.post("/free/resource", async (req: Request, res: Response) => {
+    try{
+        await freeSanctionResourceControl(req, res);
+        res.status(200).json({message: "Game Sanction with Resource removed"});
+    } catch(err){
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
+    }
+})
 
 /**
  * @swagger

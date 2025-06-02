@@ -1,5 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, Index } from "typeorm";
 
+export enum Reason {
+    RESOURCE = 'RESOURCE',
+    GENERAL = 'GENERAL',
+}
+
 @Entity({ name: "sanction_user" })
 @Index(["adminId", "userId"], { unique: true })
 export class SanctionUser {
@@ -33,6 +38,14 @@ export class SanctionGame {
 
     @Column({ name: "sanction_detail", type: "varchar", length: 255 })
     sanctionDetail: string;
+
+    @Column({
+        type: 'enum',
+        enum: Reason,
+        default: Reason.GENERAL,
+        name: 'reason'
+    })
+    reason: Reason;
 
     @Column({ name: "started_at", type: "datetime" })
     startedAt: Date;

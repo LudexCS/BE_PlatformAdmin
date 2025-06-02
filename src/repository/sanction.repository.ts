@@ -4,14 +4,16 @@ import {Account} from "../entity/account.entity";
 import {Game} from "../entity/game.entity";
 import { gameRepo } from "./game.repository";
 import { accountRepo } from "./account.repository";
+import { Reason } from "../entity/sanction.entity";
 
-export const saveSanctionGame = async (adminId: number, gameId: number, detail: string) => {
+export const saveSanctionGame = async (adminId: number, gameId: number, detail: string, reason: Reason=Reason.GENERAL) => {
     const repo = AppDataSource.getRepository(SanctionGame);
     const entry = repo.create({
         adminId: adminId,
         gameId: gameId,
         sanctionDetail: detail,
         startedAt: new Date(),
+        reason: reason
     });
 
     await gameRepo.update({ id: gameId }, { isBlocked: true });
@@ -74,3 +76,20 @@ export const deleteSanctionGameByGameId = async (gameId: number) =>
 
 export const deleteSanctionUserByUserId = async (userId: number) =>
     await AppDataSource.getRepository(SanctionUser).delete({ userId: userId });
+
+export const hasResourceSanction = async (gameId: number): Promise<boolean> => {
+    const count = await AppDataSource.getRepository(SanctionGame).count({
+        where: {
+            gameId: gameId,
+            reason: Reason.RESOURCE,
+        },
+    });
+    return count > 0;
+};
+
+export const deleteSanctionResourceByGameId = async (gameId: number) => {
+    await AppDataSource.getRepository(SanctionGame).delete({
+        gameId: gameId,
+        reason: Reason.RESOURCE,
+    });
+};
