@@ -6,7 +6,7 @@ import {
     freeSanctionUserControl,
     getSanctionedGamesControl,
     getSanctionedUsersControl,
-    sanctionResourceControl,
+    sanctionResourceControl, freeSanctionResourceControl,
 } from "../controller/sanction.controller";
 
 /**
@@ -138,7 +138,40 @@ router.post("/game", async (req: Request, res: Response) => {
     }
 });
 
-
+/**
+ * @swagger
+ * /api/admin/sanction/resource:
+ *   post:
+ *     summary: 게임 제재 등록(파생 게임 포함)
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - adminEmail
+ *               - gameId
+ *               - sanctionDetail
+ *             properties:
+ *               adminEmail:
+ *                 type: string
+ *                 example: "admin@admin.com"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
+ *               sanctionDetail:
+ *                 type: string
+ *                 example: "불쾌한 콘텐츠 포함"
+ *     responses:
+ *       201:
+ *         description: 게임 제재 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/resource", async (req: Request, res: Response) => {
     try{
         await sanctionResourceControl(req, res);
@@ -239,6 +272,33 @@ router.post("/free/game", async (req: Request, res: Response) => {
     }
 });
 
+
+/**
+ * @swagger
+ * /api/admin/sanction/free/resource:
+ *   post:
+ *     summary: 게임 제재 해제(파생 게임 포함)
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - gameId
+ *             properties:
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
+ *     responses:
+ *       200:
+ *         description: 게임 제재 해제 성공
+ *       400:
+ *         description: 요청 오류
+ */
 router.post("/free/resource", async (req: Request, res: Response) => {
     try{
         await freeSanctionResourceControl(req, res);
