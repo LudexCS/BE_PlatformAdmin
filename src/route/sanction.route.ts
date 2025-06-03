@@ -6,6 +6,7 @@ import {
     freeSanctionUserControl,
     getSanctionedGamesControl,
     getSanctionedUsersControl,
+    sanctionResourceControl, freeSanctionResourceControl,
 } from "../controller/sanction.controller";
 
 /**
@@ -31,9 +32,9 @@ import {
  *         adminEmail:
  *           type: string
  *           example: "admin@admin.com"
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: integer
+ *           example: 90
  *         userEmail:
  *           type: string
  *           example: "user@user.com"
@@ -44,9 +45,9 @@ import {
  *     SanctionFreeGameRequest:
  *       type: object
  *       properties:
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: Integer
+ *           example: 90
  *
  *     SanctionFreeUserRequest:
  *       type: object
@@ -58,9 +59,9 @@ import {
  *     SanctionedGameResponse:
  *       type: object
  *       properties:
- *         gameTitle:
- *           type: string
- *           example: "Offensive Game"
+ *         gameId:
+ *           type: Integer
+ *           example: 90
  *         sanctionDetail:
  *           type: string
  *           example: "폭력성 이슈"
@@ -106,15 +107,15 @@ const router: Router = Router();
  *             type: object
  *             required:
  *               - adminEmail
- *               - gameTitle
+ *               - gameId
  *               - sanctionDetail
  *             properties:
  *               adminEmail:
  *                 type: string
  *                 example: "admin@admin.com"
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
  *               sanctionDetail:
  *                 type: string
  *                 example: "불쾌한 콘텐츠 포함"
@@ -137,6 +138,52 @@ router.post("/game", async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * @swagger
+ * /api/admin/sanction/resource:
+ *   post:
+ *     summary: 게임 제재 등록(파생 게임 포함)
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - adminEmail
+ *               - gameId
+ *               - sanctionDetail
+ *             properties:
+ *               adminEmail:
+ *                 type: string
+ *                 example: "admin@admin.com"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
+ *               sanctionDetail:
+ *                 type: string
+ *                 example: "불쾌한 콘텐츠 포함"
+ *     responses:
+ *       201:
+ *         description: 게임 제재 성공
+ *       400:
+ *         description: 요청 오류
+ */
+router.post("/resource", async (req: Request, res: Response) => {
+    try{
+        await sanctionResourceControl(req, res);
+        res.status(201).json({message: "Game Sanction with Resource"});
+    } catch(err){
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
+    }
+})
 
 /**
  * @swagger
@@ -201,11 +248,11 @@ router.post("/user", async (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             required:
- *               - gameTitle
+ *               - gameId
  *             properties:
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
  *     responses:
  *       200:
  *         description: 게임 제재 해제 성공
@@ -224,6 +271,46 @@ router.post("/free/game", async (req: Request, res: Response) => {
         }
     }
 });
+
+
+/**
+ * @swagger
+ * /api/admin/sanction/free/resource:
+ *   post:
+ *     summary: 게임 제재 해제(파생 게임 포함)
+ *     tags: [Sanction]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - gameId
+ *             properties:
+ *               gameId:
+ *                 type: integer
+ *                 example: 90
+ *     responses:
+ *       200:
+ *         description: 게임 제재 해제 성공
+ *       400:
+ *         description: 요청 오류
+ */
+router.post("/free/resource", async (req: Request, res: Response) => {
+    try{
+        await freeSanctionResourceControl(req, res);
+        res.status(200).json({message: "Game Sanction with Resource removed"});
+    } catch(err){
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
+    }
+})
 
 /**
  * @swagger
@@ -294,6 +381,9 @@ router.post("/free/user", async (req: Request, res: Response) => {
  *                   gameTitle:
  *                     type: string
  *                     example: "Offensive Game"
+ *                   gameId:
+ *                     type: integer
+ *                     example: 90
  *                   sanctionDetail:
  *                     type: string
  *                     example: "폭력성 포함"

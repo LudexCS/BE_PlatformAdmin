@@ -10,3 +10,10 @@ export const findGameByTitle = async (gameTitle: string): Promise<Game | null> =
         .where("game.title = :title", { title: gameTitle })
         .getOne();
 };
+
+export const findGameById = async (gameId: number): Promise<Game | null> => {
+    return await gameRepo
+        .createQueryBuilder("game")
+        .where("game.id = :id", { id: gameId })
+        .getOne();
+}
