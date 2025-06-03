@@ -8,6 +8,10 @@ import adminGuard from "./middleware/admin.guard";
 import bannerRoute from "./route/banner.route";
 import termRoute from "./route/term.route";
 import getRoute from './route/get.route';
+import reportRoute from './route/report.route';
+import sanctionRoute from './route/sanction.route';
+import postReportRoute from './route/postReport.route';
+import sendEmailRoute from './route/sendEmail.route';
 
 const app : Express = express();
 app.use(express.json());
@@ -26,5 +30,9 @@ app.use('/platformadmin/api/admin/tag', tagRoute);
 app.use('/platformadmin/api/admin/term', termRoute);
 app.use('/platformadmin/api/admin/banner', bannerRoute);
 app.use('/platformadmin/api/get', getRoute);
+app.use('/platformadmin/api/admin/report', reportRoute)
+app.use('/platformadmin/api/admin/sanction', sanctionRoute);
+app.use('/platformadmin/api/protected/report', postReportRoute);
+app.use('/platformadmin/api/admin/sendEmail', sendEmailRoute)
 
 export default app;
