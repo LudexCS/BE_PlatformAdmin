@@ -19,7 +19,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://16.184.9.194:30354',
+        url: 'http://api.uosludex.com/platformadmin',
         description: '플랫폼 관리자 API 서버'
       }
     ],
