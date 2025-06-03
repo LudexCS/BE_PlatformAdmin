@@ -17,14 +17,14 @@ app.use(cors({
 }))
 
 // Swagger UI 설정
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
+app.use('/platformadmin/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
 
 // jwt middleware
-app.use('/api/protected', jwtGuard);
-app.use('/api/admin', adminGuard);
-app.use('/api/admin/tag', tagRoute);
-app.use('/api/admin/term', termRoute);
-app.use('/api/admin/banner', bannerRoute);
-app.use('/api/get', getRoute);
+app.use('/platformadmin/api/protected', jwtGuard);
+app.use('/platformadmin/api/admin', adminGuard);
+app.use('/platformadmin/api/admin/tag', tagRoute);
+app.use('/platformadmin/api/admin/term', termRoute);
+app.use('/platformadmin/api/admin/banner', bannerRoute);
+app.use('/platformadmin/api/get', getRoute);
 
 export default app;
