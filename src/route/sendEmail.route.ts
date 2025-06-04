@@ -28,7 +28,7 @@ const router: Router = Router();
  *                 description: 이메일 수신자 (회원)
  *               content:
  *                 type: string
- *                 example: "서비스 이용에 불편을 드려 죄송합니다."
+ *                 example: """게임 <strong>\"Zombie Rush 2\"</strong>에 대한 신고가 접수되어 검토 중입니다.<br/>신속한 조치가 필요하니 <a href=\"https://ludex.com/my/games/123\">내 게임 관리 페이지</a>를 확인해주세요."""
  *                 description: 이메일 본문 내용
  *     responses:
  *       200:
