@@ -19,3 +19,11 @@ export const findAccountByEmail = async (email: string): Promise<Account | null>
         .getOne();
 };
 
+export const findUsers = async (offset: number, limit: number) =>{
+    return await accountRepo
+        .createQueryBuilder("account")
+        .orderBy("id", "DESC")
+        .skip(offset)
+        .take(limit)
+        .getMany();
+}

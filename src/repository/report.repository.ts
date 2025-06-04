@@ -17,11 +17,11 @@ export const saveReport = async (report: ReportEntity): Promise<ReportEntity> =>
     return await reportRepo.save(report);
 };
 
-export const updateReportAsHandled = async (reportId: number, adminId: number) => {
+export const updateReportData = async (reportId: number, adminId: number, isHandled: boolean) => {
     await reportRepo.update(
         { id: reportId },
         {
-            isHandled: true,
+            isHandled: isHandled,
             handledAt: new Date(),
             handledAdminId: adminId,
         }
