@@ -16,11 +16,11 @@ import {getUserDetailControl, getUserListControl} from "../controller/searchUser
  *         email:
  *           type: string
  *           description: 유저 이메일
- *           example: user@example.com
+ *           example: "user@example.com"
  *         nickname:
  *           type: string
  *           description: 유저 닉네임
- *           example: 게임왕
+ *           example: "게임왕"
  *         isBlocked:
  *           type: boolean
  *           description: 차단 여부
@@ -52,7 +52,20 @@ const router: Router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/UserDetail'
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     example: 1
+ *                   email:
+ *                     type: string
+ *                     example: "user@example.com"
+ *                   nickname:
+ *                     type: string
+ *                     example: "게임왕"
+ *                   isBlocked:
+ *                     type: boolean
+ *                     example: false
  *       400:
  *         description: "잘못된 요청"
  *       500:
