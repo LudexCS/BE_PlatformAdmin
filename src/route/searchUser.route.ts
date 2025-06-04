@@ -38,7 +38,7 @@ const router: Router = Router();
  *   get:
  *     summary: 전체 유저 목록 조회
  *     description: 페이지네이션을 기반으로 전체 유저 리스트를 조회합니다.
- *     tags: [user]
+ *     tags: [Admin - user]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -81,7 +81,7 @@ router.get("/usersList", async (req: Request, res: Response) => {
  *   get:
  *     summary: 유저 정보 상세 조회
  *     description: userId를 기준으로 유저의 상세 정보를 조회합니다.
- *     tags: [user]
+ *     tags: [Admin - user]
  *     security:
  *       - bearerAuth: []
  *     parameters:
