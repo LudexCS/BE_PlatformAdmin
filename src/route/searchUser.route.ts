@@ -34,7 +34,7 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/admin/get/userList:
+ * /api/admin/user/userList:
  *   get:
  *     summary: 전체 유저 목록 조회
  *     description: 페이지네이션을 기반으로 전체 유저 리스트를 조회합니다.
@@ -75,7 +75,7 @@ router.get("/userList", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /api/admin/get/userDetail:
+ * /api/admin/user/userDetail:
  *   get:
  *     summary: 유저 정보 상세 조회
  *     description: userId를 기준으로 유저의 상세 정보를 조회합니다.
@@ -111,3 +111,5 @@ router.get("/searchNickname", async (req: Request, res: Response) => {
         }
     }
 })
+
+export default router;
