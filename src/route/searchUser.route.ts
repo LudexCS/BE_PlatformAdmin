@@ -17,7 +17,7 @@ router.get("/userList", async (req: Request, res: Response) => {
 
 router.get("/searchNickname", async (req: Request, res: Response) => {
     try{
-        await getUserDataControl(req, res);
+        //await getUserDataControl(req, res);
     } catch(err){
         if (err instanceof Error) {
             res.status(400).json({message: err.message});
