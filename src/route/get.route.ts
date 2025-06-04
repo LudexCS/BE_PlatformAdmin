@@ -97,16 +97,4 @@ router.get("/banner", async (req, res) => {
     }
 });
 
-router.get("user", async(req: Request, res: Response) => {
-    try{
-        const userList:
-    }catch(err){
-        if (err instanceof Error) {
-            res.status(400).json({ message: err.message });
-        } else {
-            res.status(500).json({ message: "Server Error" });
-        }
-    }
-})
-
 export default router;

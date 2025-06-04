@@ -1,21 +1,16 @@
 import {Request, Response} from "express";
 import {
     fetchSanctionedGames, fetchSanctionedUsers,
-    registerSanctionGame, registerSanctionGameWithResource,
+    registerSanctionGame,
     registerSanctionUser,
-    unsanctionGameById,
+    unsanctionGameByTitle,
     unsanctionUserByEmail,
 } from "../service/sanction.service";
 
 export const sanctionGameControl = async (req: Request, res: Response) => {
-    const {adminEmail, gameId, sanctionDetail} = req.body;
-    await registerSanctionGame(adminEmail, gameId, sanctionDetail);
+    const {adminEmail, gameTitle, sanctionDetail} = req.body;
+    await registerSanctionGame(adminEmail, gameTitle, sanctionDetail);
 };
-
-export const sanctionResourceControl = async (req: Request, res: Response) => {
-    const {adminEmail, gameId, sanctionDetail} = req.body;
-    await registerSanctionGameWithResource(adminEmail, gameId, sanctionDetail);
-}
 
 export const sanctionUserControl = async (req: Request, res: Response) => {
     const {adminEmail, userEmail, sanctionDetail} = req.body;
@@ -23,13 +18,8 @@ export const sanctionUserControl = async (req: Request, res: Response) => {
 };
 
 export const freeSanctionGameControl = async (req: Request, res: Response) => {
-    const {gameId} = req.body;
-    await unsanctionGameById(gameId);
-};
-
-export const freeSanctionResourceControl = async (req: Request, res: Response) => {
-    const {gameId} = req.body;
-    await unsanctionResourceById(gameId);
+    const {gameTitle} = req.body;
+    await unsanctionGameByTitle(gameTitle);
 };
 
 export const freeSanctionUserControl = async (req: Request, res: Response) => {

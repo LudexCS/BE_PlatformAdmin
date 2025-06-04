@@ -16,23 +16,23 @@ import sendEmailRoute from './route/sendEmail.route';
 const app : Express = express();
 app.use(express.json());
 app.use(cors({
-    origin: process.env.CLIENT_ORIGIN,
+    origin: ['http://localhost:3000', 'http://uosludex.com', 'https://uosludex.com'],
     credentials: true
 }))
 
 // Swagger UI 설정
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
+app.use('/platformadmin/api-docs', swaggerUi.serve, swaggerUi.setup(specs, swaggerUiOptions));
 
 // jwt middleware
-app.use('/api/protected', jwtGuard);
-app.use('/api/admin', adminGuard);
-app.use('/api/admin/tag', tagRoute);
-app.use('/api/admin/term', termRoute);
-app.use('/api/admin/banner', bannerRoute);
-app.use('/api/get', getRoute);
-app.use('/api/admin/report', reportRoute)
-app.use('/api/admin/sanction', sanctionRoute);
-app.use('/api/protected/report', postReportRoute);
-app.use('api/admin/sendEmail', sendEmailRoute)
+app.use('/platformadmin/api/protected', jwtGuard);
+app.use('/platformadmin/api/admin', adminGuard);
+app.use('/platformadmin/api/admin/tag', tagRoute);
+app.use('/platformadmin/api/admin/term', termRoute);
+app.use('/platformadmin/api/admin/banner', bannerRoute);
+app.use('/platformadmin/api/get', getRoute);
+app.use('/platformadmin/api/admin/report', reportRoute)
+app.use('/platformadmin/api/admin/sanction', sanctionRoute);
+app.use('/platformadmin/api/protected/report', postReportRoute);
+app.use('/platformadmin/api/admin/sendEmail', sendEmailRoute)
 
 export default app;
