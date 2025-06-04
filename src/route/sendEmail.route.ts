@@ -6,7 +6,7 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/admin/sendEmail:
+ * /api/admin/send/email:
  *   post:
  *     summary: 이메일 전송
  *     description: 관리자 계정이 지정된 사용자에게 이메일을 전송합니다.
@@ -52,7 +52,7 @@ const router: Router = Router();
  *                   type: string
  *                   example: Internal server error
  */
-router.post('/send', async (req: Request, res: Response) => {
+router.post('/email', async (req: Request, res: Response) => {
     try {
         await sendEmailControl(req, res);
         res.status(200).json({ message: 'Email sent successfully' });

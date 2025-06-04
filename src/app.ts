@@ -33,6 +33,6 @@ app.use('/platformadmin/api/get', getRoute);
 app.use('/platformadmin/api/admin/report', reportRoute)
 app.use('/platformadmin/api/admin/sanction', sanctionRoute);
 app.use('/platformadmin/api/protected/report', postReportRoute);
-app.use('/platformadmin/api/admin/sendEmail', sendEmailRoute)
+app.use('/platformadmin/api/admin/send', sendEmailRoute)
 
 export default app;
