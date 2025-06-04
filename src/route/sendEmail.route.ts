@@ -28,7 +28,7 @@ const router: Router = Router();
  *                 description: 이메일 수신자 (회원)
  *               content:
  *                 type: string
- *                 example: """게임 <strong>\"Pixel Dungeon\"</strong>에 대한 신고가 접수되어 검토 중입니다.<br/>신속한 조치가 필요하니 <a href=\"https://uosludex.com/my/games/132\">내 게임 관리 페이지</a>를 확인해주세요."""
+ *                 example: "게임 <strong>\"Pixel Dungeon\"</strong>에 대한 신고가 접수되어 검토 중입니다.<br/>신속한 조치가 필요하니 <a href='https://uosludex.com/my/games/132'>내 게임 관리 페이지</a>를 확인해주세요."
  *                 description: 이메일 본문 내용
  *     responses:
  *       200:
