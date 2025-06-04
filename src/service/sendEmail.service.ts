@@ -1,4 +1,3 @@
-// service/email.service.ts
 import nodemailer from 'nodemailer';
 import { findIdByEmail } from '../repository/account.repository';
 import { insertEmailLog } from '../repository/sendEmail.repository';

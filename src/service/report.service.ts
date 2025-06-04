@@ -1,4 +1,4 @@
-import {findReportById, findReports, saveReport, updateReportAsHandled} from "../repository/report.repository";
+import {findReportById, findReports, saveReport, updateReportData} from "../repository/report.repository";
 import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 import { ReportEntity } from "../entity/report.entity";
 import {findIdByEmail} from "../repository/account.repository";
@@ -21,7 +21,7 @@ export const createReport = async (
     return await saveReport(report);
 };
 
-export const handleReportService = async (reportId: number, adminId: number): Promise<string> => {
+export const handleReportService = async (reportId: number, adminId: number) => {
     const report = await findReportById(reportId);
     if (!report) {
         throw new Error("Report not found.");
@@ -30,6 +30,17 @@ export const handleReportService = async (reportId: number, adminId: number): Pr
         throw new Error("Report has already been handled.");
     }
 
-    await updateReportAsHandled(reportId, adminId);
-    return "Report marked as handled.";
+    await updateReportData(reportId, adminId, true);
+};
+
+export const unHandleReportService = async (reportId: number, adminId: number) => {
+    const report = await findReportById(reportId);
+    if (!report) {
+        throw new Error("Report not found.");
+    }
+    if (!report.isHandled) {
+        throw new Error("Report doesn't have been handled.");
+    }
+
+    await updateReportData(reportId, adminId, false);
 };

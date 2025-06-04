@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import {getReportControl, handleReportControl} from "../controller/report.controller";
+import {getReportControl, handleReportControl, unHandleReportControl} from "../controller/report.controller";
 
 
 /**
@@ -122,11 +122,64 @@ router.get("/getList", async (req: Request, res: Response) => {
  */
 router.post("/handleReport", async (req: Request, res: Response) => {
     try {
-        const result = await handleReportControl(req, res);
-        res.status(200).json({ message: result });
-    } catch (error) {
-        res.status(400).json({ error: (error as Error).message });
+        await handleReportControl(req, res);
+        res.status(200).json({ message: "Report marked as handled." });
+    } catch (err) {
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
     }
 });
+
+
+/**
+ * @swagger
+ * /api/admin/report/unHandleReport:
+ *   post:
+ *     summary: 신고 처리 되돌리기
+ *     description: 특정 reportId의 신고를 미처리 상태로 변경합니다.
+ *     tags:
+ *       - Report (관리자)
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reportId:
+ *                 type: integer
+ *                 example: 3
+ *     responses:
+ *       200:
+ *         description: 신고가 미처리 상태로 변경됨
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "UnHandle Report Successfully"
+ *       400:
+ *         description: 잘못된 요청 (이미 처리되었거나 존재하지 않는 ID)
+ */
+router.post("/unHandledReport", async (req: Request, res: Response) => {
+    try{
+        await unHandleReportControl(req, res);
+        res.status(200).json({message: "UnHandle Report Successfully"});
+    } catch(err){
+        if (err instanceof Error) {
+            res.status(400).json({message: err.message});
+        } else {
+            res.status(400).json({message: "Unknown error"});
+        }
+    }
+
+})
 
 export default router;
