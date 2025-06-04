@@ -27,3 +27,11 @@ export const findUsers = async (offset: number, limit: number) =>{
         .take(limit)
         .getMany();
 }
+
+export const findUserDetailById = async (userId: number) => {
+    return await accountRepo
+        .findOne({
+        where: { id: userId },
+        select: ["id", "email", "nickname", "isBlocked"],
+    });
+};
