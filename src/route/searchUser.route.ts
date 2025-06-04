@@ -34,7 +34,7 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/admin/user/userList:
+ * /api/admin/user/usersList:
  *   get:
  *     summary: 전체 유저 목록 조회
  *     description: 페이지네이션을 기반으로 전체 유저 리스트를 조회합니다.
@@ -62,7 +62,7 @@ const router: Router = Router();
  *       500:
  *         description: 서버 오류
  */
-router.get("/userList", async (req: Request, res: Response) => {
+router.get("/usersList", async (req: Request, res: Response) => {
     try{
         await getUserListControl(req, res);
     } catch(err){
