@@ -34,11 +34,11 @@ const router: Router = Router();
 
 /**
  * @swagger
- * /api/admin/user/usersList:
+ * /platformadmin/api/admin/user/usersList:
  *   get:
  *     summary: 전체 유저 목록 조회
  *     description: 페이지네이션을 기반으로 전체 유저 리스트를 조회합니다.
- *     tags: [Admin - user]
+ *     tags: [Admin - User]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -57,6 +57,15 @@ const router: Router = Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/UserSummary'
+ *               example:
+ *                 - id: 1
+ *                   email: user1@example.com
+ *                   nickname: 테스트유저1
+ *                   isBlocked: false
+ *                 - id: 2
+ *                   email: user2@example.com
+ *                   nickname: 테스트유저2
+ *                   isBlocked: true
  *       400:
  *         description: 잘못된 요청
  *       500:
@@ -77,11 +86,11 @@ router.get("/usersList", async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /api/admin/user/userDetail:
+ * /platformadmin/api/admin/user/userDetail:
  *   get:
  *     summary: 유저 정보 상세 조회
  *     description: userId를 기준으로 유저의 상세 정보를 조회합니다.
- *     tags: [Admin - user]
+ *     tags: [Admin - User]
  *     security:
  *       - bearerAuth: []
  *     parameters:
@@ -99,6 +108,11 @@ router.get("/usersList", async (req: Request, res: Response) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserDetail'
+ *             example:
+ *               id: 3
+ *               email: hello@example.com
+ *               nickname: 관리자
+ *               isBlocked: false
  *       400:
  *         description: 잘못된 요청
  *       404:
