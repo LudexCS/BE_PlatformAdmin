@@ -1,4 +1,4 @@
-import {findUsers} from "../repository/account.repository";
+import {findUserDetailById, findUsers} from "../repository/account.repository";
 
 export const getUserListService = async (page: number) =>{
     const PAGE_SIZE = 20;
@@ -6,3 +6,6 @@ export const getUserListService = async (page: number) =>{
     return await findUsers(offset, PAGE_SIZE);
 }
 
+export const getUserDetailService = async (userId: number) =>{
+    return await findUserDetailById(userId);
+}
