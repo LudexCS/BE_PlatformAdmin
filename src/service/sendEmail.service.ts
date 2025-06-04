@@ -30,7 +30,7 @@ export const sendEmailService = async (
               <body style="font-family: 'Apple SD Gothic Neo', Arial, sans-serif; background-color: #f6f6f6; padding: 40px;">
                 <div style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); padding: 40px; text-align: left;">
                   
-                  <h2 style="color: #2D6FF2; font-size: 36px; font-weight: bold; margin-bottom: 40px; text-align: center;">Ludex</h2>
+                  <h2 style="color: #2D6FF2; font-size: 36px; font-weight: bold; margin-bottom: 40px;">Ludex</h2>
                   
                   <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
                     안녕하세요, <strong>Ludex</strong> 입니다.<br/><br/>
@@ -44,8 +44,8 @@ export const sendEmailService = async (
                   
                   <hr style="margin: 40px 0; border: none; border-top: 1px solid #eee;" />
                   
-                  <p style="color: #666; font-size: 13px;">이 메일은 발신 전용 메일이에요.</p>
-                  <p style="color: #777; font-size: 11px;">Copyright © Ludex All rights reserved.</p>
+                  <p style="color: #999; font-size: 13px;">이 메일은 발신 전용 메일이에요.</p>
+                  <p style="color: #aaa; font-size: 11px;">Copyright © Ludex All rights reserved.</p>
                 </div>
               </body>
             </html>
