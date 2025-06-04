@@ -39,6 +39,8 @@ const router: Router = Router();
  *     summary: 전체 유저 목록 조회
  *     description: 페이지네이션을 기반으로 전체 유저 리스트를 조회합니다.
  *     tags: [user]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: page
@@ -80,6 +82,8 @@ router.get("/userList", async (req: Request, res: Response) => {
  *     summary: 유저 정보 상세 조회
  *     description: userId를 기준으로 유저의 상세 정보를 조회합니다.
  *     tags: [user]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: userId
@@ -100,7 +104,7 @@ router.get("/userList", async (req: Request, res: Response) => {
  *       404:
  *         description: 유저를 찾을 수 없음
  */
-router.get("/searchNickname", async (req: Request, res: Response) => {
+router.get("/userDetail", async (req: Request, res: Response) => {
     try{
         await getUserDetailControl(req, res);
     } catch(err){
