@@ -1,4 +1,4 @@
-import {getReports, createReport, handleReportService} from "../service/report.service";
+import {getReports, createReport, handleReportService, unHandleReportService} from "../service/report.service";
 import {Request, Response} from "express";
 import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 import {findIdByEmail} from "../repository/account.repository";
@@ -24,5 +24,15 @@ export const handleReportControl = async (req: Request, res: Response) => {
         throw new Error("Missing reportId or admin identity.");
     }
 
-    return await handleReportService(reportId, adminId);
+    await handleReportService(reportId, adminId);
 };
+
+export const unHandleReportControl = async (req: Request, res: Response) => {
+    const reportId = req.body.reportId;
+    const adminId = req.userId as number;
+
+    if (!reportId || !adminId) {
+        throw new Error("Missing reportId or admin identity.");
+    }
+    await unHandleReportService(reportId, adminId);
+}
