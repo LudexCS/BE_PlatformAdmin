@@ -7,7 +7,7 @@ export const getUserListControl = async (req: Request, res: Response) => {
 }
 
 export const getUserDetailControl = async (req: Request, res: Response) => {
-    const userId = Number(req.params.userId);
+    const userId = parseInt(req.query.userId as string);
     if (!userId) {
         throw new Error("Missing userId.");
     }
