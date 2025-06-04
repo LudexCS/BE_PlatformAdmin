@@ -2,6 +2,7 @@
 import {Request, Response, Router} from 'express';
 import { sendEmailControl } from '../controller/sendEmail.controller';
 
+const router: Router = Router();
 
 /**
  * @swagger
@@ -51,8 +52,6 @@ import { sendEmailControl } from '../controller/sendEmail.controller';
  *                   type: string
  *                   example: Internal server error
  */
-const router: Router = Router();
-
 router.post('/send', async (req: Request, res: Response) => {
     try {
         await sendEmailControl(req, res);
