@@ -25,7 +25,6 @@ import {getUserDetailControl, getUserListControl} from "../controller/searchUser
  *           type: boolean
  *           description: 차단 여부
  *           example: false
- *
  *     UserDetail:
  *       allOf:
  *         - $ref: '#/components/schemas/UserSummary'
