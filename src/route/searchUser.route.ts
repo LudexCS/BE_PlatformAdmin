@@ -52,20 +52,7 @@ const router: Router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   email:
- *                     type: string
- *                     example: "user@example.com"
- *                   nickname:
- *                     type: string
- *                     example: "게임왕"
- *                   isBlocked:
- *                     type: boolean
- *                     example: false
+ *                 $ref: '#/components/schemas/UserDetail'
  *       400:
  *         description: "잘못된 요청"
  *       500:
@@ -73,7 +60,8 @@ const router: Router = Router();
  */
 router.get("/usersList", async (req: Request, res: Response) => {
     try{
-        await getUserListControl(req, res);
+        const response = await getUserListControl(req, res);
+        res.status(200).json(response);
     } catch(err){
         if (err instanceof Error) {
             res.status(400).json({message: err.message});
@@ -115,7 +103,8 @@ router.get("/usersList", async (req: Request, res: Response) => {
  */
 router.get("/userDetail", async (req: Request, res: Response) => {
     try{
-        await getUserDetailControl(req, res);
+        const response = await getUserDetailControl(req, res);
+        res.status(200).json(response);
     } catch(err){
         if (err instanceof Error) {
             res.status(400).json({message: err.message});
