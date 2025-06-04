@@ -11,6 +11,8 @@ import { sendEmailControl } from '../controller/sendEmail.controller';
  *     description: 관리자 계정이 지정된 사용자에게 이메일을 전송합니다.
  *     tags:
  *       - Email
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
