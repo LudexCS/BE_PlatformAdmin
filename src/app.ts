@@ -12,6 +12,7 @@ import reportRoute from './route/report.route';
 import sanctionRoute from './route/sanction.route';
 import postReportRoute from './route/postReport.route';
 import sendEmailRoute from './route/sendEmail.route';
+import userRoute from './route/searchUser.route'
 
 const app : Express = express();
 app.use(express.json());
@@ -34,5 +35,6 @@ app.use('/platformadmin/api/admin/report', reportRoute)
 app.use('/platformadmin/api/admin/sanction', sanctionRoute);
 app.use('/platformadmin/api/protected/report', postReportRoute);
 app.use('/platformadmin/api/admin/send', sendEmailRoute)
+app.use('platformadmin/api/user', userRoute)
 
 export default app;
