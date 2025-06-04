@@ -56,15 +56,6 @@ const router: Router = Router();
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/UserSummary'
- *               example:
- *                 - id: 1
- *                   email: user1@example.com
- *                   nickname: 테스트유저1
- *                   isBlocked: false
- *                 - id: 2
- *                   email: user2@example.com
- *                   nickname: 테스트유저2
- *                   isBlocked: true
  *       400:
  *         description: 잘못된 요청
  *       500:
@@ -107,11 +98,6 @@ router.get("/usersList", async (req: Request, res: Response) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/UserDetail'
- *             example:
- *               id: 3
- *               email: hello@example.com
- *               nickname: 관리자
- *               isBlocked: false
  *       400:
  *         description: 잘못된 요청
  *       404:
