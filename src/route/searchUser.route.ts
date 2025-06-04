@@ -6,10 +6,6 @@ import {getUserDetailControl, getUserListControl} from "../controller/searchUser
  * @swagger
  * components:
  *   schemas:
- *     UserSummary:
- *       type: array
- *       items:
- *         $ref: '#/components/schemas/UserDetail'
  *     UserDetail:
  *       type: object
  *       properties:
@@ -56,7 +52,7 @@ const router: Router = Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/UserSummary'
+ *                 $ref: '#/components/schemas/UserDetail'
  *       400:
  *         description: "잘못된 요청"
  *       500:
