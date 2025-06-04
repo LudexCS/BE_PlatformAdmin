@@ -35,6 +35,6 @@ app.use('/platformadmin/api/admin/report', reportRoute)
 app.use('/platformadmin/api/admin/sanction', sanctionRoute);
 app.use('/platformadmin/api/protected/report', postReportRoute);
 app.use('/platformadmin/api/admin/send', sendEmailRoute)
-app.use('platformadmin/api/user', userRoute)
+app.use('/platformadmin/api/user', userRoute)
 
 export default app;
