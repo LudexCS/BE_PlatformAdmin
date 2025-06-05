@@ -16,7 +16,7 @@ export const saveSanctionGame = async (adminId: number, gameId: number, detail: 
     });
 
     const itemId = await findItemIdByGameId(gameId)
-    suspendSaleByItemId(itemId);
+    await suspendSaleByItemId(itemId);
     await gameRepo.update({ id: gameId }, { isBlocked: true });
     await repo.save(entry);
 };
