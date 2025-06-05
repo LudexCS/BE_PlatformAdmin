@@ -13,7 +13,7 @@ async function connectAndStart() {
             console.log('📦 DB connected');
 
             app.listen(PORT, () => {
-                console.log(`UserAccount REST API running on port ${PORT}`);
+                console.log(`PlatformAdmin REST API running on port ${PORT}`);
             });
             break;
         } catch (error) {

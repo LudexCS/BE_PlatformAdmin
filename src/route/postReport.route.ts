@@ -1,5 +1,7 @@
 import {Request, Response, Router} from "express";
 import {createReportControl} from "../controller/report.controller";
+import {findIdByEmail} from "../repository/account.repository";
+import {ReportCreateRequestDto} from "../dto/reportCreateRequest.dto";
 
 /**
  * @swagger
@@ -56,7 +58,11 @@ const router: Router = Router();
  */
 router.post("/post", async (req: Request, res: Response) => {
     try {
-        await createReportControl(req, res);
+        const userEmail = req.user as string;
+        const userId = await findIdByEmail(userEmail);
+        const dto = req.body as ReportCreateRequestDto;
+
+        await createReportControl(userId, dto);
         res.status(200).json({message: "Report successfully."});
     } catch {
         res.status(500).json({error: "Failed to report."});

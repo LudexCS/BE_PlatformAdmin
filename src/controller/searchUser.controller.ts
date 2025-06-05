@@ -1,11 +1,10 @@
 import { Request, Response} from "express";
-import {getUserListService} from "../service/searchUser.service";
+import {getUserDataService, getUserListService} from "../service/searchUser.service";
 
-export const getUserListControl = async (req: Request, res: Response) => {
-    const page = parseInt(req.query.page as string) || 1;
+export const getUserListControl = async (page: number) => {
     return await getUserListService(page);
 }
 
-export const getUserDataControl = async (req: Request, res: Response) => {
-
+export const getUserDataControl = async (nickname: string) => {
+    return await getUserDataService(nickname);
 }
