@@ -77,5 +77,7 @@ export const deleteSanctionGameByGameId = async (gameId: number) => {
     await resumeSaleByItemId(itemId);
 }
 
-export const deleteSanctionUserByUserId = async (userId: number) =>
-    await AppDataSource.getRepository(SanctionUser).delete({ userId: userId });
+export const deleteSanctionUserByUserId = async (userId: number) => {
+    await accountRepo.update({ id: userId }, { isBlocked: false });
+    await AppDataSource.getRepository(SanctionUser).delete({userId: userId});
+}
