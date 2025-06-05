@@ -54,7 +54,10 @@ const router: Router = Router();
  */
 router.post('/email', async (req: Request, res: Response) => {
     try {
-        await sendEmailControl(req, res);
+        const { userEmail, content } = req.body;
+        const adminId = req.userId as number;
+
+        await sendEmailControl(userEmail, content, adminId);
         res.status(200).json({ message: 'Email sent successfully' });
     } catch (err) {
         res.status(500).json({ message: (err as Error).message });

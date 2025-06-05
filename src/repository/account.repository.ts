@@ -1,6 +1,7 @@
 import AppDataSource from '../config/mysql.config'
 import { Account } from '../entity/account.entity';
 import { Repository } from "typeorm";
+import {toUserDataDto} from "../dto/userDetail.dto";
 
 export const accountRepo: Repository<Account> = AppDataSource.getRepository(Account);
 
@@ -20,18 +21,22 @@ export const findAccountByEmail = async (email: string): Promise<Account | null>
 };
 
 export const findUsers = async (offset: number, limit: number) =>{
-    return await accountRepo
+    const accounts= await accountRepo
         .createQueryBuilder("account")
         .orderBy("id", "DESC")
         .skip(offset)
         .take(limit)
         .getMany();
-}
 
-export const findUserDetailById = async (userId: number) => {
-    return await accountRepo
+    return accounts.map(toUserDataDto);
+};
+
+export const findUserDataByNickname = async (nickname: string) => {
+    const account =  await accountRepo
         .findOne({
-        where: { id: userId },
+        where: { nickname: nickname },
         select: ["id", "email", "nickname", "isBlocked"],
     });
+
+    return account ? toUserDataDto(account) : null;
 };

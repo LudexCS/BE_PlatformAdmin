@@ -79,7 +79,10 @@ const router: Router = Router();
  */
 router.get("/getList", async (req: Request, res: Response) => {
     try {
-        const reportList = await getReportControl(req, res);
+        const handled = req.query.handled === "true";
+        const page = parseInt(req.query.page as string) || 1;
+
+        const reportList = await getReportControl(handled, page);
         res.status(200).json(reportList);
     } catch {
         res.status(500).json({error: "Failed to load reports."});
@@ -122,7 +125,10 @@ router.get("/getList", async (req: Request, res: Response) => {
  */
 router.post("/handleReport", async (req: Request, res: Response) => {
     try {
-        await handleReportControl(req, res);
+        const reportId = req.body.reportId;
+        const adminId = req.userId as number;
+
+        await handleReportControl(reportId, adminId);
         res.status(200).json({ message: "Report marked as handled." });
     } catch (err) {
         if (err instanceof Error) {
@@ -170,7 +176,10 @@ router.post("/handleReport", async (req: Request, res: Response) => {
  */
 router.post("/unHandledReport", async (req: Request, res: Response) => {
     try{
-        await unHandleReportControl(req, res);
+        const reportId = req.body.reportId;
+        const adminId = req.userId as number;
+
+        await unHandleReportControl(reportId, adminId);
         res.status(200).json({message: "UnHandle Report Successfully"});
     } catch(err){
         if (err instanceof Error) {

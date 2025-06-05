@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package itemAdministration;
+
+message itemRequest {
+    string itemId = 1;
+}
+
+message itemResponse {
+    repeated string itemIds = 1;
+}
+
+message isOnSaleResponse {
+    bool isOnSale = 1;
+}
+
+service itemAdministrationService {
+        rpc suspendItem(itemRequest) returns (itemResponse);
+        rpc resumeItem(itemRequest) returns (itemResponse);
+        rpc checkOnSale(itemRequest) returns (isOnSaleResponse);
+}
