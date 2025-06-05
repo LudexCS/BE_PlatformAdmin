@@ -39,7 +39,7 @@ export const unsanctionGameById = async (gameId: number) => {
     if (!game) throw new Error("Game not found");
 
     await deleteSanctionGameByGameId(game.id);
-    await gameRepo.update({ id: game.id }, { isBlocked: true });
+    await gameRepo.update({ id: game.id }, { isBlocked: false });
 };
 
 export const unsanctionUserByEmail = async (email: string) => {
