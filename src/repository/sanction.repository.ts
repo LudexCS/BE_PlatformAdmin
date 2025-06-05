@@ -2,8 +2,9 @@ import AppDataSource from "../config/mysql.config";
 import { SanctionGame, SanctionUser } from "../entity/sanction.entity";
 import {Account} from "../entity/account.entity";
 import {Game} from "../entity/game.entity";
-import { gameRepo } from "./game.repository";
+import {findItemIdByGameId, gameRepo} from "./game.repository";
 import { accountRepo } from "./account.repository";
+import {resumeSaleByItemId, suspendSaleByItemId} from "../grpc/itemAdministration.client";
 
 export const saveSanctionGame = async (adminId: number, gameId: number, detail: string) => {
     const repo = AppDataSource.getRepository(SanctionGame);
@@ -14,6 +15,8 @@ export const saveSanctionGame = async (adminId: number, gameId: number, detail: 
         startedAt: new Date(),
     });
 
+    const itemId = await findItemIdByGameId(gameId)
+    suspendSaleByItemId(itemId);
     await gameRepo.update({ id: gameId }, { isBlocked: true });
     await repo.save(entry);
 };
@@ -68,8 +71,11 @@ export const findAccountByEmail = async (email: string) =>
 export const findGameByTitle = async (title: string) =>
     await AppDataSource.getRepository(Game).findOne({ where: { title } });
 
-export const deleteSanctionGameByGameId = async (gameId: number) =>
-    await AppDataSource.getRepository(SanctionGame).delete({ gameId: gameId });
+export const deleteSanctionGameByGameId = async (gameId: number) => {
+    await AppDataSource.getRepository(SanctionGame).delete({gameId: gameId});
+    const itemId = await findItemIdByGameId(gameId);
+    await resumeSaleByItemId(itemId);
+}
 
 export const deleteSanctionUserByUserId = async (userId: number) =>
     await AppDataSource.getRepository(SanctionUser).delete({ userId: userId });

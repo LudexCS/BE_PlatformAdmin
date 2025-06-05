@@ -106,15 +106,15 @@ const router: Router = Router();
  *             type: object
  *             required:
  *               - adminEmail
- *               - gameTitle
+ *               - gameId
  *               - sanctionDetail
  *             properties:
  *               adminEmail:
  *                 type: string
  *                 example: "admin@admin.com"
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: number
+ *                 example: 90
  *               sanctionDetail:
  *                 type: string
  *                 example: "불쾌한 콘텐츠 포함"
@@ -126,8 +126,8 @@ const router: Router = Router();
  */
 router.post("/game", async (req: Request, res: Response) => {
     try {
-        const {adminEmail, gameTitle, sanctionDetail} = req.body;
-        await sanctionGameControl(adminEmail, gameTitle, sanctionDetail);
+        const {adminEmail, gameId, sanctionDetail} = req.body;
+        await sanctionGameControl(adminEmail, gameId, sanctionDetail);
         res.status(201).json({message: "Game sanctioned"});
     } catch (err) {
         if (err instanceof Error) {
@@ -203,11 +203,11 @@ router.post("/user", async (req: Request, res: Response) => {
  *           schema:
  *             type: object
  *             required:
- *               - gameTitle
+ *               - gameId
  *             properties:
- *               gameTitle:
- *                 type: string
- *                 example: "Offensive Game"
+ *               gameId:
+ *                 type: number
+ *                 example: 90
  *     responses:
  *       200:
  *         description: 게임 제재 해제 성공
@@ -216,9 +216,9 @@ router.post("/user", async (req: Request, res: Response) => {
  */
 router.post("/free/game", async (req: Request, res: Response) => {
     try {
-        const {gameTitle} = req.body;
+        const {gameId} = req.body;
 
-        await freeSanctionGameControl(gameTitle);
+        await freeSanctionGameControl(gameId);
         res.status(200).json({message: "Game sanction removed"});
     } catch (err) {
         if (err instanceof Error) {

@@ -3,20 +3,20 @@ import {
     fetchSanctionedGames, fetchSanctionedUsers,
     registerSanctionGame,
     registerSanctionUser,
-    unsanctionGameByTitle,
+    unsanctionGameById,
     unsanctionUserByEmail,
 } from "../service/sanction.service";
 
-export const sanctionGameControl = async (adminEmail: string, gameTitle: string, sanctionDetail: string) => {
-    await registerSanctionGame(adminEmail, gameTitle, sanctionDetail);
+export const sanctionGameControl = async (adminEmail: string, gameId: number, sanctionDetail: string) => {
+    await registerSanctionGame(adminEmail, gameId, sanctionDetail);
 };
 
 export const sanctionUserControl = async (adminEmail: string, userEmail: string, sanctionDetail: string) => {
     await registerSanctionUser(adminEmail, userEmail, sanctionDetail);
 };
 
-export const freeSanctionGameControl = async (gameTitle: string) => {
-    await unsanctionGameByTitle(gameTitle);
+export const freeSanctionGameControl = async (gameId: number) => {
+    await unsanctionGameById(gameId);
 };
 
 export const freeSanctionUserControl = async (email: string) => {
