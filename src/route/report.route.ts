@@ -37,7 +37,7 @@ import {getReportControl, handleReportControl, unHandleReportControl} from "../c
  *           format: date-time
  *           nullable: true
  *           example: null
- *         comPlainantNickname:
+ *         complainantNickname:
  *           type: string
  *           example: "complainant1"
  *         reportedGameTitle:
