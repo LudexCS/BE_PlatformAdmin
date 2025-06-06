@@ -37,6 +37,15 @@ import {getReportControl, handleReportControl, unHandleReportControl} from "../c
  *           format: date-time
  *           nullable: true
  *           example: null
+ *         comPlainantNickname:
+ *           type: string
+ *           example: "complainant1"
+ *         reportedGameTitle:
+ *           type: string
+ *           example: "Bad Game"
+ *         reportedGameCreaterNickname:
+ *           type: string
+ *           example: "Bad User"
  */
 const router: Router = Router();
 
