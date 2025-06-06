@@ -6,11 +6,20 @@ const reportRepo = AppDataSource.getRepository(ReportEntity);
 export const findReports = async (handled: boolean, offset: number, limit: number) => {
     return await reportRepo
         .createQueryBuilder("report")
+        .leftJoinAndSelect("account", "complainant", "report.complainantId = complainant.id")
+        .leftJoinAndSelect("game", "reportedGame", "report.reportedGameId = reportedGame.id")
+        .leftJoinAndSelect("account", "creator", "reportedGame.userId = creator.id")
         .where("report.ishandled = :handled", { handled })
         .orderBy("report.reported_at", "DESC")
         .skip(offset)
         .take(limit)
-        .getMany();
+        .select([
+            "report",
+            "complainant.nickname",
+            "reportedGame.title",
+            "creator.nickname"
+        ])
+        .getRawMany();
 };
 
 export const saveReport = async (report: ReportEntity): Promise<ReportEntity> => {
