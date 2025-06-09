@@ -270,7 +270,7 @@ router.patch('/update', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /api/admin/get/bannerList:
+ * /api/admin/banner/get/bannerList:
  *   get:
  *     summary: 관리자용 전체 배너 목록 조회
  *     tags: [Banner]
@@ -290,7 +290,7 @@ router.patch('/update', async (req: Request, res: Response) => {
  *       500:
  *         description: 서버 오류
  */
-router.get("/bannerList", async (req, res) => {
+router.get("/get/bannerList", async (req, res) => {
     try {
         const banners: GetBannerDto[] = await adminGetBannerControl();
         res.status(200).json(banners);
