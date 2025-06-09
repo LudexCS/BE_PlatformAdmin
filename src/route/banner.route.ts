@@ -274,6 +274,8 @@ router.patch('/update', async (req: Request, res: Response) => {
  *   get:
  *     summary: 관리자용 전체 배너 목록 조회
  *     tags: [Banner]
+ *     security:
+ *      - bearerAuth: []
  *     responses:
  *       200:
  *         description: 배너 목록 반환
