@@ -1,6 +1,7 @@
 import {CreateBannerDto, toBannerDto, toBannerEntity, UpdateBannerDto} from "../dto/banner.dto";
 import {Banner} from "../entity/banner.entity";
 import {
+    adminGetActiveBanners,
     deleteBanner,
     getActiveBanners,
     saveBanner,
@@ -19,6 +20,12 @@ export async function registerBanner(createBannerDto: CreateBannerDto) {
 
 export async function findBanner() {
     const entity = await getActiveBanners();
+    if (entity.length === 0) return [];
+    return entity.map(toBannerDto);
+}
+
+export async function adminFindBanner() {
+    const entity = await adminGetActiveBanners();
     if (entity.length === 0) return [];
     return entity.map(toBannerDto);
 }

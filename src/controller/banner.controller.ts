@@ -1,5 +1,11 @@
 import {CreateBannerDto, UpdateBannerDto} from "../dto/banner.dto";
-import {deleteBannerService, findBanner, registerBanner, updateBannerService} from "../service/banner.service";
+import {
+    adminFindBanner,
+    deleteBannerService,
+    findBanner,
+    registerBanner,
+    updateBannerService
+} from "../service/banner.service";
 
 export async function createBannerControl(createBannerDto: CreateBannerDto) {
     return await registerBanner(createBannerDto);
@@ -15,4 +21,8 @@ export async function deleteBannerControl(bannerId: number) {
 
 export async function updateBannerControl(bannerId: number, dto: UpdateBannerDto) {
     await updateBannerService(bannerId, dto);
+}
+
+export async function adminGetBannerControl() {
+    return await adminFindBanner();
 }

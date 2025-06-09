@@ -46,6 +46,20 @@ export const getActiveBanners = async () => {
     }
 };
 
+export const adminGetActiveBanners = async () => {
+    try {
+        return await bannerRepo.find({
+            select: ["id", "title", "imageUrl", "linkUrl", "visible", "priority", "startsAt", "endsAt"],
+            order: {
+                priority: "ASC"
+            }
+        });
+    } catch (error) {
+        console.error("Failed to get active banners:", error);
+        return [];
+    }
+};
+
 export const deleteBanner = async (bannerId: number): Promise<void> => {
     await bannerRepo.delete({ id: bannerId });
 };
