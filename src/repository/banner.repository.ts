@@ -1,6 +1,7 @@
 import {Banner} from "../entity/banner.entity";
 import {Repository, LessThanOrEqual, MoreThanOrEqual} from "typeorm";
 import AppDataSource from "../config/mysql.config";
+import {UpdateBannerDto} from "../dto/banner.dto";
 
 const bannerRepo: Repository<Banner> = AppDataSource.getRepository(Banner);
 
@@ -29,7 +30,7 @@ export const getActiveBanners = async () => {
     try {
         const now = new Date();
         return await bannerRepo.find({
-            select: ["id", "title", "imageUrl", "linkUrl"],
+            select: ["id", "title", "imageUrl", "linkUrl", "visible", "priority", "startsAt", "endsAt"],
             where: {
                 visible: true,
                 startsAt: LessThanOrEqual(now),
@@ -44,3 +45,21 @@ export const getActiveBanners = async () => {
         return [];
     }
 };
+
+export const deleteBanner = async (bannerId: number): Promise<void> => {
+    await bannerRepo.delete({ id: bannerId });
+};
+
+export const updateBanner = async (bannerId: number, dto: UpdateBannerDto): Promise<void> => {
+    await bannerRepo.update(
+        { id: bannerId },
+        {
+            title: dto.title,
+            linkUrl: dto.linkUrl,
+            visible: dto.visible,
+            priority: dto.priority,
+            startsAt: dto.startsAt,
+            endsAt: dto.endsAt,
+        }
+    );
+}

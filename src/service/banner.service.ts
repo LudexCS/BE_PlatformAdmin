@@ -1,6 +1,12 @@
-import {CreateBannerDto, toBannerDto, toBannerEntity} from "../dto/banner.dto";
+import {CreateBannerDto, toBannerDto, toBannerEntity, UpdateBannerDto} from "../dto/banner.dto";
 import {Banner} from "../entity/banner.entity";
-import {getActiveBanners, saveBanner, updateBannerFields} from "../repository/banner.repository";
+import {
+    deleteBanner,
+    getActiveBanners,
+    saveBanner,
+    updateBanner,
+    updateBannerFields
+} from "../repository/banner.repository";
 import {uploadBannerImageToS3} from "./s3.service";
 
 export async function registerBanner(createBannerDto: CreateBannerDto) {
@@ -15,4 +21,12 @@ export async function findBanner() {
     const entity = await getActiveBanners();
     if (entity.length === 0) return [];
     return entity.map(toBannerDto);
+}
+
+export async function deleteBannerService(bannerId: number) {
+    await deleteBanner(bannerId);
+}
+
+export async function updateBannerService(bannerId: number, dto: UpdateBannerDto) {
+    await updateBanner(bannerId, dto);
 }
