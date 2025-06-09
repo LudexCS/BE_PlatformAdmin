@@ -21,6 +21,15 @@ export interface GetBannerDto {
   linkUrl: string;
 }
 
+export interface UpdateBannerDto {
+  title: string;
+  linkUrl: string;
+  visible: boolean;
+  priority: number;
+  startsAt: Date;
+  endsAt: Date;
+}
+
 export function toBannerEntity(dto: CreateBannerDto): Banner {
   const banner = new Banner();
   if(dto.adminId) banner.adminId = dto.adminId;
