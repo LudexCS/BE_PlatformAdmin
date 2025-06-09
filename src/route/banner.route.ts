@@ -1,9 +1,14 @@
 import sharp from "sharp";
 import fs from "fs/promises";
-import {CreateBannerDto, UpdateBannerDto} from "../dto/banner.dto";
+import {CreateBannerDto, GetBannerDto, UpdateBannerDto} from "../dto/banner.dto";
 import {Request, Response, Router} from "express";
 import multer from "multer";
-import {createBannerControl, deleteBannerControl, updateBannerControl} from "../controller/banner.controller";
+import {
+    adminGetBannerControl,
+    createBannerControl,
+    deleteBannerControl,
+    updateBannerControl
+} from "../controller/banner.controller";
 
 
 /**
@@ -45,6 +50,27 @@ import {createBannerControl, deleteBannerControl, updateBannerControl} from "../
  *           format: date-time
  *           description: 배너 노출 종료 시각 (ISO 8601 형식)
  *           example: "2025-06-20T23:59:59Z"
+ *     GetBannerDto:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *         title:
+ *           type: string
+ *         imageUrl:
+ *           type: string
+ *         linkUrl:
+ *           type: string
+ *         visible:
+ *           type: boolean
+ *         priority:
+ *           type: number
+ *         startsAt:
+ *           type: string
+ *           format: date-time
+ *         endsAt:
+ *           type: string
+ *           format: date-time
  */
 const router: Router = Router();
 
@@ -144,7 +170,7 @@ router.post('/create', upload.fields([
  * @swagger
  * /api/admin/banner/delete:
  *   delete:
- *     summary: delete Banner
+ *     summary: 배너 삭제
  *     tags: [Banner]
  *     security:
  *      - bearerAuth: []
@@ -241,5 +267,38 @@ router.patch('/update', async (req: Request, res: Response) => {
         }
     }
 })
+
+/**
+ * @swagger
+ * /api/admin/get/bannerList:
+ *   get:
+ *     summary: 관리자용 전체 배너 목록 조회
+ *     tags: [Banner]
+ *     responses:
+ *       200:
+ *         description: 배너 목록 반환
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/GetBannerDto'
+ *       400:
+ *         description: 잘못된 요청
+ *       500:
+ *         description: 서버 오류
+ */
+router.get("/bannerList", async (req, res) => {
+    try {
+        const banners: GetBannerDto[] = await adminGetBannerControl();
+        res.status(200).json(banners);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(400).json({ message: error.message });
+        } else {
+            res.status(500).json({ message: "Server Error" });
+        }
+    }
+});
 
 export default router;
