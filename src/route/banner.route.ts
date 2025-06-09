@@ -142,7 +142,7 @@ router.post('/create', upload.fields([
 
 /**
  * @swagger
- * /delete:
+ * /api/admin/banner/delete:
  *   delete:
  *     summary: delete Banner
  *     tags: [Banner]
@@ -190,7 +190,7 @@ router.delete('/delete', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /update:
+ * /api/admin/banner/update:
  *   patch:
  *     summary: 배너 수정
  *     description: bannerId에 해당하는 배너 정보를 수정합니다.
