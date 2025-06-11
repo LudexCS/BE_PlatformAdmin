@@ -19,6 +19,19 @@ export interface GetBannerDto {
   title: string;
   imageUrl: string;
   linkUrl: string;
+  visible: boolean;
+  priority: number;
+  startsAt: Date;
+  endsAt: Date;
+}
+
+export interface UpdateBannerDto {
+  title: string;
+  linkUrl: string;
+  visible: boolean;
+  priority: number;
+  startsAt: Date;
+  endsAt: Date;
 }
 
 export function toBannerEntity(dto: CreateBannerDto): Banner {
@@ -41,5 +54,9 @@ export function toBannerDto(banner: Banner): GetBannerDto {
     title: banner.title,
     imageUrl: banner.imageUrl,
     linkUrl: banner.linkUrl,
+    visible: banner.visible,
+    priority: banner.priority,
+    startsAt: banner.startsAt,
+    endsAt: banner.endsAt
   }
 }
